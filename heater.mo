@@ -1,0 +1,12 @@
+model heater
+  inner Chemical.System system(set_n = 2, use_EnergyBal = true, OpenSys = true, use_T = true, known_Cv = {false, false}, Cv_coeff_aq = {0, 0}, known_Cp = {false, false}, Cp_coeff_aq = {0, 0}) annotation(Placement(visible = true, transformation(origin = {80, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Chemical.UnitOp.Heater heater1(known_Tout = true, Tout = 200, known_Q = false, P = 500000, Heat_Stream = true) annotation(Placement(visible = true, transformation(origin = {-20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Chemical.Specify.point point1(known_u = true, P = 500000, T = 150, Tref = 0, Gas = false, known_U = {true, true}, U = {0, 0}, known_H = {false, false}, known_n = false, known_X = {false, false}, known_comp = {true, true}, comp_flow = {.6, .4}) annotation(Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Chemical.Specify.point point2(known_u = true, known_T = false, P = 500000, T = 200, Gas = false, known_U = {true, false}, U = {0, 0}, known_H = {false, false}, known_X = {false, false}, known_comp = {false, false}, known_P = false) annotation(Placement(visible = true, transformation(origin = {20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Chemical.Interfaces.HeatPort_Out QOut annotation(Placement(visible = true, transformation(origin = {-20, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-20, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+equation
+  connect(QOut, heater1.QOut) annotation(Line(points = {{-20, 40}, {-19.7183, 40}, {-19.7183, 8.92019}, {-19.7183, 8.92019}}, color = {191, 0, 0}));
+  connect(heater1.Out[1], point2.port) annotation(Line(points = {{-12.1, 0.4}, {19.2488, 0.4}, {19.2488, -0.469484}, {19.2488, -0.469484}}, color = {0, 127, 255}));
+  connect(point1.port, heater1.In[1]) annotation(Line(points = {{-60, 0}, {-27.6995, 0}, {-27.6995, -0.938967}, {-27.6995, -0.938967}}, color = {0, 127, 255}));
+  annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})));
+end heater;
